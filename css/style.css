@@ -1,0 +1,98 @@
+:root {
+  --bar: #1f2328;
+  --bar-fg: #f1f3f5;
+  --bar-muted: #9aa4ad;
+  --btn: #2d333b;
+  --btn-hover: #3a414a;
+  --accent: #e8590c;
+  --ok: #2f9e44;
+  --paper: #ffffff;
+  --page-bg: #e9ecef;
+  --text: #212529;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --page-bg: #15181c; --text: #e9ecef; }
+}
+:root[data-theme="dark"] { --page-bg: #15181c; --text: #e9ecef; }
+
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  display: flex; flex-direction: column;
+  font: 14px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--page-bg); color: var(--text);
+}
+
+#toolbar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px;
+  padding: 8px 16px; background: var(--bar); color: var(--bar-fg);
+  position: relative; z-index: 10;
+}
+.group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.field { display: flex; align-items: center; gap: 6px; color: var(--bar-muted); font-size: 12px; }
+select {
+  background: var(--btn); color: var(--bar-fg); border: 1px solid #444c56; border-radius: 6px;
+  padding: 5px 6px; font: inherit; font-size: 13px; max-width: 220px;
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 6px; cursor: pointer; user-select: none;
+  background: var(--btn); color: var(--bar-fg); border: 1px solid #444c56; border-radius: 6px;
+  padding: 6px 10px; font: inherit; font-size: 13px; line-height: 1.2;
+}
+.btn:hover:not(:disabled) { background: var(--btn-hover); }
+.btn:disabled { opacity: .45; cursor: default; }
+.btn.primary { background: #1c7ed6; border-color: #1c7ed6; }
+.btn.primary:hover { background: #1971c2; }
+.btn.icon { padding: 6px 9px; }
+.zoom { display: flex; align-items: center; gap: 4px; }
+#zoomLabel { min-width: 42px; text-align: center; font-variant-numeric: tabular-nums; color: var(--bar-muted); }
+
+.listen .dot { width: 10px; height: 10px; border-radius: 50%; background: #868e96; }
+.listen.on { background: #c92a2a; border-color: #c92a2a; }
+.listen.on .dot { background: #fff; animation: pulse 1.2s infinite; }
+@keyframes pulse { 50% { opacity: .35; } }
+
+.tuner { margin-left: auto; }
+.meter { position: relative; width: 70px; height: 8px; background: #2d333b; border-radius: 4px; overflow: hidden; }
+#level { height: 100%; width: 0; background: var(--ok); transition: width 60ms linear; }
+#gateMark { position: absolute; top: 0; bottom: 0; width: 2px; background: #fab005; }
+.readout { min-width: 150px; font-variant-numeric: tabular-nums; }
+#noteName { font-weight: 600; font-size: 16px; }
+.muted { color: var(--bar-muted); }
+#empty .muted { color: #868e96; }
+
+.settings { position: relative; }
+.settings summary { list-style: none; }
+.settings summary::-webkit-details-marker { display: none; }
+.settings .panel {
+  position: absolute; right: 0; top: calc(100% + 6px); width: 280px; padding: 12px;
+  background: var(--bar); border: 1px solid #444c56; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.35);
+  display: flex; flex-direction: column; gap: 10px;
+}
+.settings .panel label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; }
+.settings .panel label:has(input[type=checkbox]) { flex-direction: row; align-items: center; }
+.hint { margin: 0; font-size: 12px; color: var(--bar-muted); }
+
+#scroller { flex: 1; overflow: auto; position: relative; outline: none; }
+#osmd { background: var(--paper); margin: 0 auto; max-width: 1400px; min-height: 100%; position: relative; }
+#osmd[hidden] { display: none; }
+#osmd img[id^="cursorImg"] { pointer-events: none; }
+#empty { max-width: 560px; margin: 12vh auto; padding: 0 16px; text-align: center; }
+#empty h1 { font-size: 28px; margin-bottom: 8px; }
+body.dragging #scroller { outline: 3px dashed #1c7ed6; outline-offset: -8px; }
+
+#status {
+  position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); max-width: calc(100% - 32px);
+  background: rgba(33, 37, 41, .92); color: #fff; padding: 8px 14px; border-radius: 8px; font-size: 13px;
+  opacity: 0; transition: opacity .25s; pointer-events: none; z-index: 20;
+}
+#status.show { opacity: 1; }
+#status.error { background: rgba(201, 42, 42, .95); }
+
+@media (max-width: 700px) {
+  #toolbar { padding: 8px 16px; gap: 6px 10px; }
+  .tuner { margin-left: 0; }
+  .readout { min-width: 110px; }
+  select { max-width: 150px; }
+}

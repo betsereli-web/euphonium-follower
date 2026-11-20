@@ -1,0 +1,12 @@
+{
+  "name": "euphonium-follower",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Browser score follower for euphonium: MusicXML + OpenSheetMusicDisplay + YIN pitch detection + automatic page turns.",
+  "type": "module",
+  "scripts": {
+    "start": "node serve.mjs",
+    "test": "node tests/run-tests.mjs"
+  },
+  "license": "MIT"
+}
